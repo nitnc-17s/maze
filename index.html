@@ -3,44 +3,26 @@
 <head>
   <title>Maze</title>
   <meta charset="UTF-8">
-  <style type="text/css">
-    [v-cloak] {
-      display: none;
-    }
-
-    #app {
-      white-space: nowrap;
-    }
-
-    .line {
-      display: inline-block;
-    }
-
-    .cell-black {
-      background-color: black;
-      width: 12px;
-      height: 12px;
-    }
-    .cell-white {
-      background-color: white;
-      width: 12px;
-      height: 12px;
-    }
-    .cell-player {
-      background-color: red;
-      width: 12px;
-      height: 12px;
-    }
-  </style>
+  <link rel="stylesheet" href="maze.css">
 </head>
 <body>
   <div id="app">
     <div>
-      <p>X: <input v-model.number="x" type="number"></p>
-      <p>Y: <input v-model.number="y" type="number"></p>
+      <table>
+        <tr>
+          <th>X</th>
+          <td><input v-model.number="x" type="number" min="1" step="2"></td>
+        </tr>
+        <tr>
+          <th>Y</th>
+          <td><input v-model.number="y" type="number" min="1" step="2"></td>
+        </tr>
+      </table>
     </div>
-    <div v-for="(line, index) in mazeCSS" :key="index" v-cloak class="line">
-      <div v-for="(cell, index) in line" :key="index" v-cloak :class="cell"></div>
+    <div v-for="(line, index) in mazeHTML" :key="index" v-cloak class="line">
+      <div v-for="(cell, index) in line" :key="index" v-cloak class="cell" :class="cell.css">
+        {{ cell.text }}
+      </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

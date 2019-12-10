@@ -22,7 +22,7 @@ app = new Vue({
                 maze[r - 1][c] = 0
                 recursion(r - 2, c)
               }
-              break;
+              break
             case 2:
               if (c + 2 >= y - 1) continue
               if (maze[r][c + 2] != 0) {
@@ -30,7 +30,7 @@ app = new Vue({
                 maze[r][c + 1] = 0
                 recursion(r, c + 2)
               }
-              break;
+              break
             case 3:
               if (r + 2 >= x - 1) continue
               if (maze[r + 2][c] != 0) {
@@ -38,7 +38,7 @@ app = new Vue({
                 maze[r + 1][c] = 0
                 recursion(r + 2, c)
               }
-              break;
+              break
             case 4:
               if (c - 2 <= 0) continue
               if (maze[r][c - 2] != 0) {
@@ -46,7 +46,7 @@ app = new Vue({
                 maze[r][c - 1] = 0
                 recursion(r, c - 2)
               }
-              break;
+              break
           }
         }
       }
@@ -68,8 +68,25 @@ app = new Vue({
     }
   },
   computed: {
-    mazeCSS() {
-      return this.maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
+    mazeHTML() {
+      const mazeHTML = this.maze.map(line => line.map(cell => {
+        switch(cell) {
+          case 0: return { css: "cell-white", text: "" }
+          case 1: return { css: "cell-black", text: "" }
+          default: return { css: "", text: "" }
+        }
+      }))
+
+      if (mazeHTML[1] != null && mazeHTML[1][1] != null) {
+        mazeHTML[1][1].css = "cell-start"
+        mazeHTML[1][1].text = "S"
+      }
+      if (mazeHTML[this.x - 2] != null && mazeHTML[this.x - 2][this.y - 2] != null) {
+        mazeHTML[this.x - 2][this.y - 2].css = "cell-goal"
+        mazeHTML[this.x - 2][this.y - 2].text = "G"
+      }
+
+      return mazeHTML
     },
     xy() {
       return this.x * this.y
@@ -79,6 +96,20 @@ app = new Vue({
     this.maze = this.generateMaze()
   },
   watch: {
+    x(val) {
+      if (val % 2 === 0) {
+        this.x = val - 1
+      } else {
+        this.x = val
+      }
+    },
+    y(val) {
+      if (val % 2 === 0) {
+        this.y = val - 1
+      } else {
+        this.y = val
+      }
+    },
     xy() {
       this.maze = this.generateMaze()
     }
