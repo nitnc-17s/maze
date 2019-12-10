@@ -1,6 +1,8 @@
 app = new Vue({
   el: '#app',
   data: {
+    min: 5,
+    step: 2,
     x: 9,
     y: 9,
     maze: []
@@ -97,6 +99,10 @@ app = new Vue({
   },
   watch: {
     x(val) {
+      if (val < this.min) {
+        this.x = min
+      }
+
       if (val % 2 === 0) {
         this.x = val - 1
       } else {
@@ -104,6 +110,10 @@ app = new Vue({
       }
     },
     y(val) {
+      if (val < this.min) {
+        this.y = min
+      }
+
       if (val % 2 === 0) {
         this.y = val - 1
       } else {
