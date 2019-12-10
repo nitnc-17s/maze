@@ -5,16 +5,8 @@ app = new Vue({
     y: 9,
     maze: []
   },
-  computed: {
-    mazeCSS() {
-      return this.maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
-    },
-    xy() {
-      return this.x * this.y
-    }
-  },
-  watch: {
-    xy() {
+  methods: {
+    generateMaze() {
       const x = this.x
       const y = this.y
       const maze = [...Array(x)].map(() => Array(y).fill(1))
@@ -72,7 +64,23 @@ app = new Vue({
 
       maze[1][1] = 0
       recursion(1, 1)
-      this.maze = maze
+      return maze
+    }
+  },
+  computed: {
+    mazeCSS() {
+      return this.maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
+    },
+    xy() {
+      return this.x * this.y
+    }
+  },
+  mounted() {
+    this.maze = this.generateMaze()
+  },
+  watch: {
+    xy() {
+      this.maze = this.generateMaze()
     }
   }
 })
