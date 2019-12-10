@@ -135,22 +135,20 @@ app = new Vue({
   },
   computed: {
     mazeHTML() {
-      const mazeHTML = this.maze.map(line => line.map(cell => {
+      const mazeHTML = this.maze.map((line, x) => line.map((cell, y) => {
+        if (x === 1 && y === 1) {
+          return { css: "cell-start", text: `${x}:${y}` }
+        }
+        if (x === this.x - 2  && y === this.y - 2) {
+          return { css: "cell-goal", text: `${x}:${y}` }
+        }
+
         switch(cell) {
-          case 0: return { css: "cell-white", text: "" }
-          case 1: return { css: "cell-black", text: "" }
-          default: return { css: "", text: "" }
+          case 0: return { css: "cell-white", text: `${x}:${y}` }
+          case 1: return { css: "cell-black", text: `${x}:${y}` }
+          default: return { css: "", text: `${x}:${y}` }
         }
       }))
-
-      if (mazeHTML[1] != null && mazeHTML[1][1] != null) {
-        mazeHTML[1][1].css = "cell-start"
-        mazeHTML[1][1].text = "S"
-      }
-      if (mazeHTML[this.x - 2] != null && mazeHTML[this.x - 2][this.y - 2] != null) {
-        mazeHTML[this.x - 2][this.y - 2].css = "cell-goal"
-        mazeHTML[this.x - 2][this.y - 2].text = "G"
-      }
 
       return mazeHTML
     },
