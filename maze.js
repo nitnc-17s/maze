@@ -13,7 +13,7 @@ app = new Vue({
       return this.x * this.y
     }
   },
-  watch {
+  watch: {
     xy() {
       const x = this.x
       const y = this.y
