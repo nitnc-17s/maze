@@ -26,6 +26,11 @@
       width: 12px;
       height: 12px;
     }
+    .cell-player {
+      background-color: red;
+      width: 12px;
+      height: 12px;
+    }
   </style>
 </head>
 <body>
@@ -106,7 +111,9 @@
           maze[1][1] = 0
           recursion(1, 1)
 
-          return maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
+          const mazeCSS = maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
+          mazeCSS[1][1] = "cell-player"
+          return mazeCSS
         }
       }
     })
