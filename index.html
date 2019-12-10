@@ -39,7 +39,7 @@
       <p>X: <input v-model.number="x" type="number"></p>
       <p>Y: <input v-model.number="y" type="number"></p>
     </div>
-    <div v-for="(line, index) in maze" :key="index" v-cloak class="line">
+    <div v-for="(line, index) in mazeCSS" :key="index" v-cloak class="line">
       <div v-for="(cell, index) in line" :key="index" v-cloak :class="cell"></div>
     </div>
   </div>
@@ -110,10 +110,10 @@
 
           maze[1][1] = 0
           recursion(1, 1)
-
-          const mazeCSS = maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
-          mazeCSS[1][1] = "cell-player"
-          return mazeCSS
+          return maze
+        },
+        mazeCSS() {
+          return this.maze.map(line => line.map(cell => cell ? "cell-black" : "cell-white"))
         }
       }
     })
