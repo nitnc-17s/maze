@@ -2,19 +2,16 @@
   display: none;
 }
 
-#app {
-  white-space: nowrap;
-}
-
 .line {
   display: flex;
 }
 
 .cell {
-  --cell-size: 24px;
+  --cell-size: 2em;
+  flex-shrink: 0;
   width: var(--cell-size);
   height: var(--cell-size);
-  font-size: calc(var(--cell-size) - 2px);
+  font-size: 1em;
   text-align: center;
   line-height: var(--cell-size);
 }

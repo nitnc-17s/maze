@@ -12,10 +12,9 @@
         <tr>
           <th>X</th>
           <td><input v-model.number="x" type="number" :min="min" :step="step"></td>
-        </tr>
-        <tr>
           <th>Y</th>
           <td><input v-model.number="y" type="number" :min="min" :step="step"></td>
+          <td><button type="button" @click="solve()">Solve</button></td>
         </tr>
       </table>
     </div>

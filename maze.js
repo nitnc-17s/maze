@@ -5,7 +5,9 @@ app = new Vue({
     step: 2,
     x: 9,
     y: 9,
-    maze: []
+    maze: [],
+    match: [],
+    maze2: []
   },
   methods: {
     generateMaze() {
@@ -67,6 +69,68 @@ app = new Vue({
       maze[1][1] = 0
       recursion(1, 1)
       return maze
+    },
+    initMatch() {
+      for(let i=0;i<this.y;i++){
+        this.match[i] = []
+        this.maze2[i] = []
+        for(let l=0;l<this.x;l++){
+          this.match[i][l]=4;
+          this.maze2[i][l]=this.maze[i][l];
+        }
+      }
+    },
+    solve() {
+      //0 miti
+      //1 kabe
+      this.initMatch();
+      let m = this.maze2;
+      let match = this.match;
+      let player_x=1;
+      let player_y=1;
+      loop(player_x,player_y);//start
+      let total_flg=false;//goal
+      function loop(x,y){
+        m[x][y]=2;
+        let flg = [0,0,0,0];
+        flg[0] = (m[x-1][y]==0)?1:2;//ue
+        flg[1] = (m[x][y+1]==0)?1:2;//migi
+        flg[2] = (m[x+1][y]==0)?1:2;//sita
+        flg[3] = (m[x][y-1]==0)?1:2;//hidari
+        let r = Math.floor(Math.random()*3)+1;//1~4
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        let sum = flg.reduce(reducer);//goukei
+        if (sum==8){
+          if (x==this.x-1&&y==this.y-1){
+            total_flg=true;
+          }
+          player_x=x;
+          player_y=y;
+          return;
+        } else {
+          if (x==this.x-1&&y==this.y-1){
+            total_flg=true;
+            player_x=x;
+            player_y=y;
+            return;
+          }
+          if (flg[0]==1&&match[x-1][y]>=r) {loop(x-1,y);}
+          else if (flg[1]==1&&match[x][y+1]>=r) {loop(x,y+1);}
+          else if (flg[2]==1&&match[x+1][y]>=r) {loop(x+1,y);}
+          else if (flg[3]==1&&match[x][y-1]>=r) {loop(x,y-1);}
+        }
+      }
+      let add=0;
+      add = (total_flg)?1:-1;
+      x=player_x;
+      y=player_y;
+      while(true){
+        if (x==1&&y==1) break;
+        if (m[x-1][y]==2) {x-=1;match[x-1][y]+=add;}
+        else if (m[x][y+1]==2) {y+=1;match[x][y+1]+=add;}
+        else if (m[x+1][y]==2) {x+=1;match[x+1][y]+=add;}
+        else if (m[x][y-1]==2) {y-=1;match[x][y-1]+=add;}
+      }
     }
   },
   computed: {
@@ -96,6 +160,7 @@ app = new Vue({
   },
   mounted() {
     this.maze = this.generateMaze()
+    this.initMatch()
   },
   watch: {
     x(val) {
