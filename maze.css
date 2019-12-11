@@ -1,60 +1,56 @@
 [v-cloak] {
-  display: none;
-}
-
-.line {
-  display: flex;
-}
-
-.cell {
-  --cell-size: 4em;
-  flex-shrink: 0;
-  width: var(--cell-size);
-  height: var(--cell-size);
-  font-size: 1em;
-  text-align: center;
-  line-height: var(--cell-size);
-}
-.cell-black {
-  background-color: black;
-  color: white;
-}
-.cell-white {
-  background-color: white;
-  color: black;
-}
-.cell-start {
-  background-color: royalblue;
-  color: white;
-}
-.cell-goal {
-  background-color: crimson;
-  color: white;
-}
-.cell-now-position {
-  background-color: deeppink !important;
-  color: white;
-}
-.cell-trail {
-  --one: darkorange;
-  --two: white;
-  background-image: linear-gradient(
-    -45deg,
-    var(--one) 12.5%,
-    var(--two) 12.5%,
-    var(--two) 25%,
-    var(--one) 25%,
-    var(--one) 37.5%,
-    var(--two) 37.5%,
-    var(--two) 50%,
-    var(--one) 50%,
-    var(--one) 62.5%,
-    var(--two) 62.5%,
-    var(--two) 75%,
-    var(--one) 75%,
-    var(--one) 87.5%,
-    var(--two) 87.5%,
-    var(--two)
-  );
-  color: black;
-}
+    display: none;
+  }
+  
+  .line {
+    display: flex;
+  }
+  
+  .cell {
+    --cell-size: 2em;
+    flex-shrink: 0;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    font-size: 1em;
+    text-align: center;
+    line-height: var(--cell-size);
+  }
+  .cell-black {
+    background-color: black;
+  }
+  .cell-white {
+    background-color: white;
+  }
+  .cell-start {
+    background-color: royalblue;
+    color: white;
+  }
+  .cell-goal {
+    background-color: crimson;
+    color: white;
+  }
+  .cell-now-position {
+    background-color: deeppink !important;
+  }
+  .cell-trail {
+    --one: darkorange;
+    --two: white;
+    background-image: linear-gradient(
+      -45deg,
+      var(--one) 12.5%,
+      var(--two) 12.5%,
+      var(--two) 25%,
+      var(--one) 25%,
+      var(--one) 37.5%,
+      var(--two) 37.5%,
+      var(--two) 50%,
+      var(--one) 50%,
+      var(--one) 62.5%,
+      var(--two) 62.5%,
+      var(--two) 75%,
+      var(--one) 75%,
+      var(--one) 87.5%,
+      var(--two) 87.5%,
+      var(--two)
+    );
+  }
