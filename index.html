@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Maze</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="maze.css">
-</head>
-<body>
-  <div id="app">
-    <div>
-      <table>
-        <tr>
-          <th>X</th>
-          <td><input v-model.number="x" type="number" :min="min" :step="step"></td>
-          <th>Y</th>
-          <td><input v-model.number="y" type="number" :min="min" :step="step"></td>
-          <td><button type="button" @click="solve()">Solve</button></td>
-        </tr>
-      </table>
-    </div>
-    <div v-for="(line, index) in mazeHTML" :key="index" v-cloak class="line">
-      <div v-for="(cell, index) in line" :key="index" v-cloak class="cell" :class="cell.css">
-        {{ cell.text }}
+  <head>
+    <title>Maze</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="maze.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <table>
+          <tr>
+            <th>X</th>
+            <td>
+              <input v-model.number="x" type="number" :min="min" :step="step" />
+            </td>
+            <th>Y</th>
+            <td>
+              <input v-model.number="y" type="number" :min="min" :step="step" />
+            </td>
+            <td><button type="button" @click="solve()">Solve</button></td>
+          </tr>
+        </table>
+      </div>
+      <div v-for="(line, index) in mazeHTML" :key="index" v-cloak class="line">
+        <div
+          v-for="(cell, index) in line"
+          :key="index"
+          v-cloak
+          class="cell"
+          :class="cell.css"
+        >
+          {{ cell.text }}
+        </div>
       </div>
     </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="maze.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="maze.js"></script>
+  </body>
 </html>
