@@ -178,6 +178,7 @@ app = new Vue({
         this.numberOfFailures += 1;
       }
       m.map((line, x) => {
+        this.$set(this.maze, x, []);
         line.map((cell, y) => {
           this.$set(this.maze[x], y, cell);
         });
