@@ -188,25 +188,52 @@ app = new Vue({
       add = total_flg ? 1 : -1;
       x = player_x;
       y = player_y;
+      let memX=0;
+      let memY=0;
       m[x][y] = 0;
       while (true) {
         if (x == 1 && y == 1) break;
         if (m[x - 1][y] == 2) {
-          m[x - 1][y] = 0;
-          match[x - 1][y] += add;
+          if(m[x][y + 1] == 0){match[x][y + 1] -= add;}
+          if(m[x + 1][y] == 0){match[x + 1][y] -= add;}
+          if(m[x][y - 1] == 0){match[x][y - 1] -= add;}
+          match[memX][memY] +=add;
+          m[x - 1][y]=3;
           x -= 1;
+          memX=x;
+          memY=y;
         } else if (m[x][y + 1] == 2) {
-          m[x][y + 1] = 0;
-          match[x][y + 1] += add;
+          if(m[x - 1][y] == 0){match[x - 1][y] -= add;}
+          if(m[x + 1][y] == 0){match[x + 1][y] -= add;}
+          if(m[x][y - 1] == 0){match[x][y - 1] -= add;}
+          match[memX][memY] +=add;
+          m[x][y + 1]=3;
           y += 1;
+          memX=x;
+          memY=y;
         } else if (m[x + 1][y] == 2) {
-          m[x + 1][y] = 0;
-          match[x + 1][y] += add;
+          if(m[x - 1][y] == 0){match[x - 1][y] -= add;}
+          if(m[x][y + 1] == 0){match[x][y + 1] -= add;}
+          if(m[x][y - 1] == 0){match[x][y - 1] -= add;}
+          match[memX][memY] +=add;
+          m[x + 1][y]=3;
           x += 1;
+          memX=x;
+          memY=y;
         } else if (m[x][y - 1] == 2) {
-          m[x][y - 1] = 0;
-          match[x][y - 1] += add;
+          if(m[x - 1][y] == 0){match[x - 1][y] -= add;}
+          if(m[x + 1][y] == 0){match[x + 1][y] -= add;}
+          if(m[x][y + 1] == 0){match[x][y + 1] -= add;}
+          match[memX][memY] +=add;
+          m[x][y - 1]=3;
           y -= 1;
+          memX=x;
+          memY=y;
+        }
+      }
+      for(let i in m){
+        for(let l in m[i]){
+          if(m[i][l]==3)m[i][l]=0;
         }
       }
     },
