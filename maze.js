@@ -1,3 +1,4 @@
+/*jshint esversion:6*/
 app = new Vue({
   el: '#app',
   data: {
@@ -7,7 +8,9 @@ app = new Vue({
     y: 9,
     maze: [],
     match: [],
-    maze2: []
+    maze2: [],
+    goalnum: 0,
+    notgoalnum: 0
   },
   methods: {
     generateMaze() {
@@ -80,6 +83,11 @@ app = new Vue({
         }
       }
     },
+    solve100() {
+      for (let i = 0; i < 100; i++) {
+        this.solve();
+      }
+    },
     solve() {
       //0 miti
       //1 kabe
@@ -97,7 +105,6 @@ app = new Vue({
       let x = player_x;
       let y = player_y;
       while (true) {
-        //console.log(`loop(${x},${y})`)
         m[x][y] = 2;
         let flg = [0, 0, 0, 0];
         flg[0] = m[x - 1][y] == 0 ? 1 : 2; //ue
@@ -142,32 +149,32 @@ app = new Vue({
             player_y = y;
             break;
           }
-          if (flg[0] == 1 && match[x - 1][y] >= r) {
-            x -= 1;
-            continue;
-          } else if (flg[1] == 1 && match[x][y + 1] >= r) {
-            y += 1;
-            continue;
-          } else if (flg[2] == 1 && match[x + 1][y] >= r) {
-            x += 1;
-            continue;
-          } else if (flg[3] == 1 && match[x][y - 1] >= r) {
-            y -= 1;
-            continue;
+          hoge: while (true) {
+            let r = Math.floor(Math.random() * 6) + 1; //1~6
+            if (flg[0] == 1 && match[x - 1][y] >= r) {
+              x -= 1;
+              break hoge;
+            } else if (flg[1] == 1 && match[x][y + 1] >= r) {
+              y += 1;
+              break hoge;
+            } else if (flg[2] == 1 && match[x + 1][y] >= r) {
+              x += 1;
+              break hoge;
+            } else if (flg[3] == 1 && match[x][y - 1] >= r) {
+              y -= 1;
+              break hoge;
+            }
           }
+          continue;
         }
       }
 
       //goal
-      //console.log('--------------');
-      //for (let i in m) {
-      //  var a = '';
-      //  for (let l in m[i]) {
-      //    a += m[i][l];
-      //  }
-      //  console.log(a);
-      //}
-      //console.log('--------------');
+      if (total_flg) {
+        this.goalnum += 1;
+      } else {
+        this.notgoalnum += 1;
+      }
       m.map((line, x) => {
         line.map((cell, y) => {
           this.$set(this.maze[x], y, cell);
@@ -262,6 +269,7 @@ app = new Vue({
     },
     xy() {
       this.maze = this.generateMaze();
+      this.initMatch();
     }
   }
 });

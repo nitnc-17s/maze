@@ -7,7 +7,7 @@
 }
 
 .cell {
-  --cell-size: 4em;
+  --cell-size: 2em;
   flex-shrink: 0;
   width: var(--cell-size);
   height: var(--cell-size);
@@ -17,11 +17,9 @@
 }
 .cell-black {
   background-color: black;
-  color: white;
 }
 .cell-white {
   background-color: white;
-  color: black;
 }
 .cell-start {
   background-color: royalblue;
@@ -33,7 +31,6 @@
 }
 .cell-now-position {
   background-color: deeppink !important;
-  color: white;
 }
 .cell-trail {
   --one: darkorange;
@@ -56,5 +53,4 @@
     var(--two) 87.5%,
     var(--two)
   );
-  color: black;
 }

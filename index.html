@@ -19,6 +19,7 @@
               <input v-model.number="y" type="number" :min="min" :step="step" />
             </td>
             <td><button type="button" @click="solve()">Solve</button></td>
+            <td><button type="button" @click="solve100()">Solve100</button></td>
           </tr>
         </table>
       </div>
@@ -33,6 +34,17 @@
           {{ cell.text }}
         </div>
       </div>
+      <br />
+      <table>
+        <tr>
+          <td>Goal:</td>
+          <td><span id="goal">{{goalnum}}</span></td>
+        </tr>
+        <tr>
+          <td>Not Goal:</td>
+          <td><span id="notgoal">{{notgoalnum}}</span></td>
+        </tr>
+      </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="maze.js"></script>
