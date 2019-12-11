@@ -4,6 +4,7 @@
 
 .line {
   display: flex;
+  justify-content: center;
 }
 
 .cell {

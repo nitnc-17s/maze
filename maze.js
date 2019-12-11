@@ -1,18 +1,21 @@
 /*jshint esversion:6*/
 app = new Vue({
   el: '#app',
+  vuetify: new Vuetify(),
   data: {
-    min: 5,
-    step: 2,
     x: 9,
     y: 9,
     maze: [],
     match: [],
     maze2: [],
-    goalnum: 0,
-    notgoalnum: 0
+    numberOfSuccesses: 0,
+    numberOfFailures: 0
   },
   methods: {
+    regenMaze() {
+      this.generateMaze();
+      this.init();
+    },
     generateMaze() {
       const x = this.x;
       const y = this.y;
@@ -71,33 +74,32 @@ app = new Vue({
 
       maze[1][1] = 0;
       recursion(1, 1);
-      return maze;
+      this.maze = maze;
     },
-    initMatch() {
-      for (let i = 0; i < this.x; i++) {
-        this.match[i] = [];
-        this.maze2[i] = [];
-        for (let l = 0; l < this.y; l++) {
-          this.match[i][l] = 4;
-          this.maze2[i][l] = this.maze[i][l];
-        }
-      }
+    init() {
+      this.match = [...Array(this.x)].map(() => Array(this.y).fill(4));
+      this.maze.map((line, x) => {
+        this.$set(this.maze2, x, []);
+        line.map((cell, y) => {
+          this.$set(this.maze2[x], y, cell);
+        });
+      });
+      this.numberOfSuccesses = 0;
+      this.numberOfFailures = 0;
     },
-    solve100() {
-      for (let i = 0; i < 100; i++) {
-        this.solve();
-      }
+    solveXTimes(x) {
+      [...Array(x)].map(() => this.solve());
     },
     solve() {
       //0 miti
       //1 kabe
       let m = [];
-      for (let i in this.maze2) {
-        m[i] = [];
-        for (let l in this.maze2[i]) {
-          m[i][l] = this.maze2[i][l];
-        }
-      }
+      this.maze2.map((line, x) => {
+        m[x] = []
+        line.map((cell, y) => {
+          m[x][y] = cell;
+        });
+      });
       let match = this.match;
       let player_x = 1;
       let player_y = 1;
@@ -171,9 +173,9 @@ app = new Vue({
 
       //goal
       if (total_flg) {
-        this.goalnum += 1;
+        this.numberOfSuccesses += 1;
       } else {
-        this.notgoalnum += 1;
+        this.numberOfFailures += 1;
       }
       m.map((line, x) => {
         line.map((cell, y) => {
@@ -206,42 +208,35 @@ app = new Vue({
           y -= 1;
         }
       }
+    },
+    cellCSS(cell, x, y) {
+      if (x === 1 && y === 1) {
+        return 'cell-start';
+      }
+      if (x === this.x - 2 && y === this.y - 2) {
+        return 'cell-goal';
+      }
+      if (cell === 2) {
+        return 'cell-trail';
+      }
+
+      switch (cell) {
+        case 0:
+          return 'cell-white';
+        case 1:
+          return 'cell-black';
+        default:
+          return '';
+      }
     }
   },
   computed: {
-    mazeHTML() {
-      const mazeHTML = this.maze.map((line, x) =>
-        line.map((cell, y) => {
-          if (x === 1 && y === 1) {
-            return { css: 'cell-start', text: `${x}:${y}` };
-          }
-          if (x === this.x - 2 && y === this.y - 2) {
-            return { css: 'cell-goal', text: `${x}:${y}` };
-          }
-          if (cell === 2) {
-            return { css: 'cell-trail', text: `${x}:${y}` };
-          }
-
-          switch (cell) {
-            case 0:
-              return { css: 'cell-white', text: `${x}:${y}` };
-            case 1:
-              return { css: 'cell-black', text: `${x}:${y}` };
-            default:
-              return { css: '', text: `${x}:${y}` };
-          }
-        })
-      );
-
-      return mazeHTML;
-    },
     xy() {
       return this.x * this.y;
     }
   },
   mounted() {
-    this.maze = this.generateMaze();
-    this.initMatch();
+    this.regenMaze();
   },
   watch: {
     x(val) {
@@ -267,8 +262,7 @@ app = new Vue({
       }
     },
     xy() {
-      this.maze = this.generateMaze();
-      this.initMatch();
+      this.regenMaze();
     }
   }
 });

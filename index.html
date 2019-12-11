@@ -2,51 +2,72 @@
 <html>
   <head>
     <title>Maze</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <link rel="stylesheet" href="maze.css" />
   </head>
   <body>
     <div id="app">
-      <div>
-        <table>
-          <tr>
-            <th>X</th>
-            <td>
-              <input v-model.number="x" type="number" :min="min" :step="step" />
-            </td>
-            <th>Y</th>
-            <td>
-              <input v-model.number="y" type="number" :min="min" :step="step" />
-            </td>
-            <td><button type="button" @click="solve()">Solve</button></td>
-            <td><button type="button" @click="solve100()">Solve100</button></td>
-          </tr>
-        </table>
-      </div>
-      <div v-for="(line, index) in mazeHTML" :key="index" v-cloak class="line">
-        <div
-          v-for="(cell, index) in line"
-          :key="index"
-          v-cloak
-          class="cell"
-          :class="cell.css"
-        >
-          {{ cell.text }}
-        </div>
-      </div>
-      <br />
-      <table>
-        <tr>
-          <td>Goal:</td>
-          <td><span id="goal">{{goalnum}}</span></td>
-        </tr>
-        <tr>
-          <td>Not Goal:</td>
-          <td><span id="notgoal">{{notgoalnum}}</span></td>
-        </tr>
-      </table>
+      <v-app>
+        <v-content>
+          <v-container fluid>
+            <v-card class="my-2">
+              <v-card-title>迷路生成</v-card-title>
+              <v-card-text class="pb-0">
+                <v-slider v-model.number="x" :label="`X: ${x}`" type="number" min="5" step="2"></v-slider>
+                <v-slider v-model.number="y" :label="`Y: ${y}`" type="number" min="5" step="2"></v-slider>
+              </v-card-text>
+              <v-card-actions class="pt-0">
+                <v-spacer></v-spacer>
+                <v-btn @click="regenMaze()">再生成</v-btn>
+              </v-card-actions>
+            </v-card>
+
+            <v-card class="my-2">
+              <v-card-title>迷路解決</v-card-title>
+              <v-card-text class="pb-0">
+                <p class="subtitle-1 black--text">
+                  <span class="green--text">{{ numberOfSuccesses }}</span>
+                  <span class="red--text">{{ numberOfFailures }}</span>
+                  {{ numberOfSuccesses + numberOfFailures }}
+                </p>
+              </v-card-text>
+              <v-card-actions class="pt-0">
+                <v-spacer></v-spacer>
+                <v-btn @click="solve()">解決</v-btn>
+                <v-btn @click="solveXTimes(100)">解決 100回</v-btn>
+              </v-card-actions>
+            </v-card>
+
+            <v-card class="my-2">
+              <v-card-text>
+                <div v-for="(line, x) in maze" :key="x" v-cloak class="line">
+                  <div
+                    v-for="(cell, y) in line"
+                    :key="y"
+                    v-cloak
+                    class="cell"
+                    :class="cellCSS(cell, x, y)"
+                  >
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on }">
+                        <span v-on="on">{{ match[x][y] }}</span>
+                      </template>
+                      <span>{{ x }}:{{ y }}</span>
+                    </v-tooltip>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-container>
+        </v-content>
+      </v-app>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="maze.js"></script>
   </body>
 </html>
