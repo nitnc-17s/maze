@@ -74,10 +74,10 @@ app = new Vue({
       return maze;
     },
     initMatch() {
-      for (let i = 0; i < this.y; i++) {
+      for (let i = 0; i < this.x; i++) {
         this.match[i] = [];
         this.maze2[i] = [];
-        for (let l = 0; l < this.x; l++) {
+        for (let l = 0; l < this.y; l++) {
           this.match[i][l] = 4;
           this.maze2[i][l] = this.maze[i][l];
         }
