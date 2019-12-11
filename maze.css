@@ -2,16 +2,17 @@
   display: none;
 }
 
+.maze {
+  overflow-x: scroll;
+}
+
 .line {
   display: flex;
-  justify-content: center;
 }
 
 .cell {
   --cell-size: 4em;
-  flex-shrink: 0;
-  width: var(--cell-size);
-  height: var(--cell-size);
+  flex: 0 0 var(--cell-size);
   font-size: 1em;
   text-align: center;
   line-height: var(--cell-size);

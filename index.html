@@ -44,20 +44,22 @@
 
             <v-card class="my-2">
               <v-card-text>
-                <div v-for="(line, x) in maze" :key="x" v-cloak class="line">
-                  <div
-                    v-for="(cell, y) in line"
-                    :key="y"
-                    v-cloak
-                    class="cell"
-                    :class="cellCSS(cell, x, y)"
-                  >
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on }">
-                        <span v-on="on">{{ match[x][y] }}</span>
-                      </template>
-                      <span>{{ x }}:{{ y }}</span>
-                    </v-tooltip>
+                <div class="maze">
+                  <div v-for="(line, x) in maze" :key="x" v-cloak class="line">
+                    <div
+                      v-for="(cell, y) in line"
+                      :key="y"
+                      v-cloak
+                      class="cell"
+                      :class="cellCSS(cell, x, y)"
+                    >
+                      <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                          <span v-on="on">{{ match[x][y] }}</span>
+                        </template>
+                        <span>({{ x }}, {{ y }})</span>
+                      </v-tooltip>
+                    </div>
                   </div>
                 </div>
               </v-card-text>
