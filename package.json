@@ -1,6 +1,6 @@
 {
   "lint-staged": {
-    "*.{js,css,html}": [
+    "./*.{js,css,html}": [
       "prettier --write --single-quote=true",
       "git add"
     ]
