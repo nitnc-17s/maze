@@ -212,7 +212,6 @@ app = new Vue({
     mazeHTML() {
       const mazeHTML = this.maze.map((line, x) =>
         line.map((cell, y) => {
-          console.log(x, y, cell);
           if (x === 1 && y === 1) {
             return { css: 'cell-start', text: `${x}:${y}` };
           }
