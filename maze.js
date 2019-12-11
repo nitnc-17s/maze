@@ -111,6 +111,7 @@ app = new Vue({
         flg[1] = m[x][y + 1] == 0 ? 1 : 2; //migi
         flg[2] = m[x + 1][y] == 0 ? 1 : 2; //sita
         flg[3] = m[x][y - 1] == 0 ? 1 : 2; //hidari
+        let r = Math.floor(Math.random() * 6) + 1; //1~6
         const reducer = (accumulator, currentValue) =>
           accumulator + currentValue;
         let sum = flg.reduce(reducer); //goukei
@@ -169,14 +170,17 @@ app = new Vue({
       }
 
       //goal
-      //console.log("--------------");
-      //for(let i in m){var a="";for(let l in m[i]){a+=m[i][l];}console.log(a);}
-      //console.log("--------------");
       if (total_flg) {
         this.goalnum += 1;
       } else {
         this.notgoalnum += 1;
       }
+      m.map((line, x) => {
+        line.map((cell, y) => {
+          this.$set(this.maze[x], y, cell);
+        });
+      });
+
       let add = 0;
       add = total_flg ? 1 : -1;
       x = player_x;
@@ -206,30 +210,29 @@ app = new Vue({
   },
   computed: {
     mazeHTML() {
-      const mazeHTML = this.maze.map(line =>
-        line.map(cell => {
+      const mazeHTML = this.maze.map((line, x) =>
+        line.map((cell, y) => {
+          console.log(x, y, cell);
+          if (x === 1 && y === 1) {
+            return { css: 'cell-start', text: `${x}:${y}` };
+          }
+          if (x === this.x - 2 && y === this.y - 2) {
+            return { css: 'cell-goal', text: `${x}:${y}` };
+          }
+          if (cell === 2) {
+            return { css: 'cell-trail', text: `${x}:${y}` };
+          }
+
           switch (cell) {
             case 0:
-              return { css: 'cell-white', text: '' };
+              return { css: 'cell-white', text: `${x}:${y}` };
             case 1:
-              return { css: 'cell-black', text: '' };
+              return { css: 'cell-black', text: `${x}:${y}` };
             default:
-              return { css: '', text: '' };
+              return { css: '', text: `${x}:${y}` };
           }
         })
       );
-
-      if (mazeHTML[1] != null && mazeHTML[1][1] != null) {
-        mazeHTML[1][1].css = 'cell-start';
-        mazeHTML[1][1].text = 'S';
-      }
-      if (
-        mazeHTML[this.x - 2] != null &&
-        mazeHTML[this.x - 2][this.y - 2] != null
-      ) {
-        mazeHTML[this.x - 2][this.y - 2].css = 'cell-goal';
-        mazeHTML[this.x - 2][this.y - 2].text = 'G';
-      }
 
       return mazeHTML;
     },
