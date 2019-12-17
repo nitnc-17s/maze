@@ -29,7 +29,7 @@
             <v-card class="my-2">
               <v-card-title>迷路解決</v-card-title>
               <v-card-text class="pb-0">
-                <p class="subtitle-1 black--text" v-cloak>>
+                <p class="subtitle-1 black--text" v-cloak>
                   <span class="green--text">{{ numberOfSuccesses }}</span>
                   <span class="red--text">{{ numberOfFailures }}</span>
                   {{ numberOfSuccesses + numberOfFailures }}
@@ -57,7 +57,7 @@
                         <template v-slot:activator="{ on }">
                           <span v-on="on" v-cloak>>{{ match[x][y] }}</span>
                         </template>
-                        <span v-cloak>>({{ x }}, {{ y }})</span>
+                        <span v-cloak>({{ x }}, {{ y }})</span>
                       </v-tooltip>
                     </div>
                   </div>
