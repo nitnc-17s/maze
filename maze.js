@@ -251,8 +251,7 @@ app = new Vue({
       }
     },
     cellStyle(x, y) {
-      if (x != null || y != null) return 'line-height: 4em;';
-      return 'line-height: ' + this.$refs[`cell-${x}-${y}`].width +';';
+      return 'line-height: 4em;';
     }
   },
   computed: {
