@@ -2,20 +2,15 @@
   display: none;
 }
 
-.maze {
-  overflow-x: scroll;
-}
+.maze {}
 
 .line {
-  display: flex;
+  display: grid;
 }
 
 .cell {
-  --cell-size: 4em;
-  flex: 0 0 var(--cell-size);
   font-size: 1em;
   text-align: center;
-  line-height: var(--cell-size);
 }
 .cell-black {
   background-color: black;
