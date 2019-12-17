@@ -185,46 +185,39 @@ app = new Vue({
       //for(let i in m){for(let l in m[i]){console.log(m[i][l])}}
       while (true) {
         if (x == 1 && y == 1) break;
+        mem_flg = true;
         if (m[x - 1][y] == 2) {
-          if(mem_flg && !(x == player_x && y == player_y)){
-            if(m[x][y + 1] == 0) { match[x][y + 1] -= add; mem_flg = false; }
-            if(m[x + 1][y] == 0) { match[x + 1][y] -= add; mem_flg = false; }
-            if(m[x][y - 1] == 0) { match[x][y - 1] -= add; mem_flg = false; }
-            if(!mem_flg)match[memX][memY] += add;
-          }
+          if(m[x][y + 1] == 0) { match[x][y + 1] -= add; mem_flg = false; }
+          if(m[x + 1][y] == 0) { match[x + 1][y] -= add; mem_flg = false; }
+          if(m[x][y - 1] == 0) { match[x][y - 1] -= add; mem_flg = false; }
+          if(!mem_flg)match[memX][memY] += add;
           m[x - 1][y]=3;
           memX = x;
           memY = y;
           x -= 1;
         } else if (m[x][y + 1] == 2) {
-          if(mem_flg && !(x == player_x && y == player_y)){
           if(m[x - 1][y] == 0) { match[x - 1][y] -= add; mem_flg = false; }
           if(m[x + 1][y] == 0) { match[x + 1][y] -= add; mem_flg = false; }
           if(m[x][y - 1] == 0) { match[x][y - 1] -= add; mem_flg = false; }
           if(!mem_flg)match[memX][memY] += add;
-          }
           m[x][y + 1] = 3;
           memX = x;
           memY = y;
           y += 1;
         } else if (m[x + 1][y] == 2) {
-          if(mem_flg && !(x == player_x && y == player_y)){
           if(m[x - 1][y] == 0) { match[x - 1][y] -= add; mem_flg = false; }
           if(m[x][y + 1] == 0) { match[x][y + 1] -= add; mem_flg = false; }
           if(m[x][y - 1] == 0) { match[x][y - 1] -= add; mem_flg = false; }
           if(!mem_flg)match[memX][memY] += add;
-          }
           m[x + 1][y] = 3;
           memX = x;
           memY = y;
           x += 1;
         } else if (m[x][y - 1] == 2) {
-          if(mem_flg && !(x == player_x && y == player_y)){
           if(m[x - 1][y] == 0) { match[x - 1][y] -= add; mem_flg = false; }
           if(m[x + 1][y] == 0) { match[x + 1][y] -= add; mem_flg = false; }
           if(m[x][y + 1] == 0) { match[x][y + 1] -= add; mem_flg = false; }
           if(!mem_flg)match[memX][memY] += add;
-          }
           m[x][y - 1] = 3;
           memX = x;
           memY = y;
