@@ -39,7 +39,7 @@
 }
 .cell-trail {
   --one: darkorange;
-  --two: white;
+  --two: rgba(0, 0, 0, 0);
   background-image: linear-gradient(
     -45deg,
     var(--one) 12.5%,
