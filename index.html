@@ -14,56 +14,66 @@
       <v-app>
         <v-content>
           <v-container fluid>
-            <v-card class="my-2">
-              <v-card-title>迷路生成</v-card-title>
-              <v-card-text class="pb-0">
-                <v-text-field v-model.number="x" :label="`X: ${x}`" type="number" min="5" step="2"></v-text-field>
-                <v-text-field v-model.number="y" :label="`Y: ${y}`" type="number" min="5" step="2"></v-text-field>
-              </v-card-text>
-              <v-card-actions class="pt-0">
-                <v-spacer></v-spacer>
-                <v-btn @click="regenMaze()">再生成</v-btn>
-              </v-card-actions>
-            </v-card>
+            <v-row>
+              <v-col>
+                <v-card class="my-2">
+                  <v-card-title>迷路生成</v-card-title>
+                  <v-card-text class="pb-0">
+                    <v-text-field v-model.number="x" :label="`X: ${x}`" type="number" min="5" step="2"></v-text-field>
+                    <v-text-field v-model.number="y" :label="`Y: ${y}`" type="number" min="5" step="2"></v-text-field>
+                  </v-card-text>
+                  <v-card-actions class="pt-0">
+                    <v-spacer></v-spacer>
+                    <v-btn @click="regenMaze()">再生成</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
 
-            <v-card class="my-2">
-              <v-card-title>迷路解決</v-card-title>
-              <v-card-text class="pb-0">
-                <p class="subtitle-1 black--text" v-cloak>
-                  <span class="green--text">{{ numberOfSuccesses }}</span>
-                  <span class="red--text">{{ numberOfFailures }}</span>
-                  {{ numberOfSuccesses + numberOfFailures }}
-                </p>
-              </v-card-text>
-              <v-card-actions class="pt-0">
-                <v-spacer></v-spacer>
-                <v-btn @click="solve()">解決</v-btn>
-                <v-btn @click="solveXTimes(100)">解決 100回</v-btn>
-              </v-card-actions>
-            </v-card>
-
-            <v-card class="my-2">
-              <v-card-text>
-                <div class="maze" ref="maze" :style="{ '--x': x }">
-                  <div v-for="(line, x2) in maze" :key="x2" v-cloak class="line">
-                    <div
-                      v-for="(cell, y2) in line"
-                      :key="y2"
-                      v-cloak
-                      class="cell"
-                      :class="cellCSS(cell, x2, y2)"
-                    >
-                      <v-tooltip top>
-                        <template v-slot:activator="{ on }">
-                          <span v-on="on" v-cloak>{{ match[x2][y2] }}</span>
-                        </template>
-                        <span v-cloak style="font-size: 1.5em;">({{ x2 }}, {{ y2 }}): {{ match[x2][y2] }}</span>
-                      </v-tooltip>
+              <v-col>
+                <v-card class="my-2">
+                  <v-card-title>迷路解決</v-card-title>
+                  <v-card-text class="pb-0">
+                    <p class="subtitle-1 black--text" v-cloak>
+                      <span class="green--text">{{ numberOfSuccesses }}</span>
+                      <span class="red--text">{{ numberOfFailures }}</span>
+                      {{ numberOfSuccesses + numberOfFailures }}
+                    </p>
+                  </v-card-text>
+                  <v-card-actions class="pt-0">
+                    <v-spacer></v-spacer>
+                    <v-btn @click="solve()">解決</v-btn>
+                    <v-btn @click="solveXTimes(100)">解決 100回</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+            
+            <v-row>
+              <v-col>
+                <v-card class="my-2">
+                  <v-card-text>
+                    <div class="maze" ref="maze" :style="{ '--x': x }">
+                      <div v-for="(line, x2) in maze" :key="x2" v-cloak class="line">
+                        <div
+                          v-for="(cell, y2) in line"
+                          :key="y2"
+                          v-cloak
+                          class="cell"
+                          :class="cellCSS(cell, x2, y2)"
+                        >
+                          <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                              <span v-on="on" v-cloak>{{ match[x2][y2] }}</span>
+                            </template>
+                            <span v-cloak style="font-size: 1.5em;">({{ x2 }}, {{ y2 }}): {{ match[x2][y2] }}</span>
+                          </v-tooltip>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </v-card-text>
-            </v-card>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-container>
         </v-content>
       </v-app>
