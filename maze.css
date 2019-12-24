@@ -8,7 +8,7 @@
   --cell-size: calc(var(--base-width) / var(--x));
   display: block;
   width: var(--base-width);
-  height: var(--base-height);
+  height: var(--base-width);
   margin: 0 auto;
 }
 
