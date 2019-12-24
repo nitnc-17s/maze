@@ -44,22 +44,20 @@
 
             <v-card class="my-2">
               <v-card-text>
-                <div class="maze">
-                  <div v-for="(line, x) in maze" :key="x" v-cloak class="line" :style="`grid-template-columns: repeat(${line.length}, 1fr);`">
+                <div class="maze" ref="maze" :style="{ '--x': x }">
+                  <div v-for="(line, x2) in maze" :key="x2" v-cloak class="line">
                     <div
-                      v-for="(cell, y) in line"
-                      :key="y"
+                      v-for="(cell, y2) in line"
+                      :key="y2"
                       v-cloak
                       class="cell"
-                      :class="cellCSS(cell, x, y)"
-                      :ref="`cell-${x}-${y}`"
-                      :style="cellStyle(x, y)"
+                      :class="cellCSS(cell, x2, y2)"
                     >
                       <v-tooltip top>
                         <template v-slot:activator="{ on }">
-                          <span v-on="on" v-cloak>{{ match[x][y] }}</span>
+                          <span v-on="on" v-cloak>{{ match[x2][y2] }}</span>
                         </template>
-                        <span v-cloak>({{ x }}, {{ y }})</span>
+                        <span v-cloak style="font-size: 1.5em;">({{ x2 }}, {{ y2 }}): {{ match[x2][y2] }}</span>
                       </v-tooltip>
                     </div>
                   </div>

@@ -2,14 +2,25 @@
   display: none;
 }
 
-.maze {}
+.maze {
+  --base-width: 90vw;
+  --base-height: 90vh;
+  --cell-size: calc(var(--base-width) / var(--x));
+  display: block;
+  width: var(--base-width);
+  height: var(--base-height);
+  margin: 0 auto;
+}
 
 .line {
-  display: grid;
+  display: inline-block;
 }
 
 .cell {
-  font-size: 1em;
+  height: var(--cell-size);
+  width: var(--cell-size);
+  line-height: var(--cell-size);
+  font-size: calc(var(--cell-size) / 4);
   text-align: center;
 }
 .cell-black {
@@ -33,25 +44,6 @@
   color: white;
 }
 .cell-trail {
-  --one: darkorange;
-  --two: rgba(0, 0, 0, 0);
-  background-image: linear-gradient(
-    -45deg,
-    var(--one) 12.5%,
-    var(--two) 12.5%,
-    var(--two) 25%,
-    var(--one) 25%,
-    var(--one) 37.5%,
-    var(--two) 37.5%,
-    var(--two) 50%,
-    var(--one) 50%,
-    var(--one) 62.5%,
-    var(--two) 62.5%,
-    var(--two) 75%,
-    var(--one) 75%,
-    var(--one) 87.5%,
-    var(--two) 87.5%,
-    var(--two)
-  );
+  background: rgba(255, 140, 0, 0.8);
   color: black;
 }

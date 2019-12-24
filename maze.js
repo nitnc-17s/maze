@@ -249,9 +249,6 @@ app = new Vue({
         default:
           return '';
       }
-    },
-    cellStyle(x, y) {
-      return 'line-height: 4em;';
     }
   },
   computed: {
