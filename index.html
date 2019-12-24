@@ -19,8 +19,16 @@
                 <v-card class="my-2">
                   <v-card-title>迷路生成</v-card-title>
                   <v-card-text class="pb-0">
-                    <v-text-field v-model.number="x" :label="`X: ${x}`" type="number" min="5" step="2"></v-text-field>
-                    <v-text-field v-model.number="y" :label="`Y: ${y}`" type="number" min="5" step="2"></v-text-field>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col>
+                          <v-text-field v-model.number="x" :label="`X: ${x}`" type="number" min="5" step="2"></v-text-field>
+                        </v-col>
+                        <v-col>
+                          <v-text-field v-model.number="y" :label="`Y: ${y}`" type="number" min="5" step="2"></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
                   </v-card-text>
                   <v-card-actions class="pt-0">
                     <v-spacer></v-spacer>
