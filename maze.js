@@ -11,7 +11,11 @@ app = new Vue({
     numberOfSuccesses: 0,
     numberOfFailures: 0,
     maxMatch: 0,
-    minMatch: 0
+    minMatch: 0,
+    interval: 1000,
+    time: 100,
+    solvedTime: 0,
+    timer: null
   },
   methods: {
     regenMaze() {
@@ -88,9 +92,20 @@ app = new Vue({
       });
       this.numberOfSuccesses = 0;
       this.numberOfFailures = 0;
+      this.maxMatch = 0;
+      this.minMatch = 0;
+      this.solvedTime = 0;
     },
     solveXTimes(x) {
-      [...Array(x)].map(() => this.solve());
+      this.timer = setInterval(() => {
+        this.solve();
+        if (this.solvedTime >= x) clearInterval(this.timer);
+      }, this.interval);
+      this.solvedTime = 0;
+    },
+    stopSolve() {
+      clearInterval(this.timer);
+      this.solvedTime = 0;
     },
     solve() {
       //0 miti
@@ -232,7 +247,8 @@ app = new Vue({
         }
       }
       this.maxMatch = match.flat().reduce((a, b) => Math.max(a, b));
-      this.minMatch = match.flat().reduce((a, b) => Math.min(a, b))
+      this.minMatch = match.flat().reduce((a, b) => Math.min(a, b));
+      this.solvedTime++;
     },
     cellCSS(cell, x, y) {
       if (x === 1 && y === 1) {
@@ -255,13 +271,13 @@ app = new Vue({
       }
     },
     cellMatchStyle(match) {
-      let colorRGB = "139, 0, 139"
-      let opacity = match / this.maxMatch
+      let colorRGB = "139, 0, 139";
+      let opacity = match / this.maxMatch;
       if (match < 0) {
-        colorRGB = "70, 140, 0"
-        opacity = match / this.minMatch
+        colorRGB = "70, 140, 0";
+        opacity = match / this.minMatch;
       }
-      const color = `${colorRGB}, ${opacity}`
+      const color = `${colorRGB}, ${opacity}`;
       return {
         '--cell-match-color': `rgba(${color})`
       }
