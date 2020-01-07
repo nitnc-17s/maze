@@ -83,6 +83,7 @@ app = new Vue({
       this.maze = maze;
     },
     init() {
+      clearInterval(this.timer);
       this.match = [...Array(this.x)].map(() => Array(this.y).fill(4));
       this.maze.map((line, x) => {
         this.$set(this.maze2, x, []);
