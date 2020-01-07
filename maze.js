@@ -9,7 +9,9 @@ app = new Vue({
     match: [],
     maze2: [],
     numberOfSuccesses: 0,
-    numberOfFailures: 0
+    numberOfFailures: 0,
+    maxMatch: 0,
+    minMatch: 0
   },
   methods: {
     regenMaze() {
@@ -229,6 +231,8 @@ app = new Vue({
           if(m[i][l] == 3) m[i][l]=0;
         }
       }
+      this.maxMatch = match.flat().reduce((a, b) => Math.max(a, b));
+      this.minMatch = match.flat().reduce((a, b) => Math.min(a, b))
     },
     cellCSS(cell, x, y) {
       if (x === 1 && y === 1) {
@@ -248,6 +252,18 @@ app = new Vue({
           return 'cell-black';
         default:
           return '';
+      }
+    },
+    cellMatchStyle(match) {
+      let colorRGB = "139, 0, 139"
+      let opacity = match / this.maxMatch
+      if (match < 0) {
+        colorRGB = "70, 140, 0"
+        opacity = match / this.minMatch
+      }
+      const color = `${colorRGB}, ${opacity}`
+      return {
+        '--cell-match-color': `rgba(${color})`
       }
     }
   },

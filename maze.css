@@ -44,6 +44,9 @@
   color: white;
 }
 .cell-trail {
-  background: rgba(255, 140, 0, 0.8);
+  background-color: rgba(255, 140, 0, 0.8);
   color: black;
+}
+.cell-match {
+  color: var(--cell-match-color);
 }
