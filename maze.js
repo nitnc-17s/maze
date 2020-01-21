@@ -98,6 +98,7 @@ app = new Vue({
       this.solvedTime = 0;
     },
     solveXTimes(x) {
+      this.stopSolve();
       this.timer = setInterval(() => {
         this.solve();
         if (this.solvedTime >= x) clearInterval(this.timer);
