@@ -69,8 +69,8 @@
                           class="cell"
                           :class="cellCSS(cell, x2, y2)"
                         >
-                          <div class="cell-match" :style="cellMatchStyle(match[x2][y2])">
-                            <span v-on="on" v-cloak>{{ match[x2][y2] }}</span>
+                          <div class="cell-match" :style="cellMatchStyle(match[x2][y2])" v-cloak>
+                            {{ match[x2][y2] }}
                           </div>
                         </div>
                       </div>
