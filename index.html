@@ -70,12 +70,7 @@
                           :class="cellCSS(cell, x2, y2)"
                         >
                           <div class="cell-match" :style="cellMatchStyle(match[x2][y2])">
-                            <v-tooltip top>
-                              <template v-slot:activator="{ on }">
-                                <span v-on="on" v-cloak>{{ match[x2][y2] }}</span>
-                              </template>
-                              <span v-cloak style="font-size: 1.5em;">({{ x2 }}, {{ y2 }}): {{ match[x2][y2] }}</span>
-                            </v-tooltip>
+                            <span v-on="on" v-cloak>{{ match[x2][y2] }}</span>
                           </div>
                         </div>
                       </div>
